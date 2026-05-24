@@ -9,6 +9,7 @@ resource "google_container_cluster" "main" {
   initial_node_count = 3
   node_config {
     service_account = google_service_account.main.email
+    disk_size_gb    = 50
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
