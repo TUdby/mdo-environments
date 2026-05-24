@@ -4,9 +4,10 @@ resource "google_service_account" "main" {
 }
 
 resource "google_container_cluster" "main" {
-  name               = "${var.cluster_name}-${var.branch}"
-  location           = var.location
-  initial_node_count = 3
+  name                = "${var.cluster_name}-${var.branch}"
+  location            = var.location
+  initial_node_count  = 3
+  deletion_protection = false
   node_config {
     service_account = google_service_account.main.email
     disk_size_gb    = 50
