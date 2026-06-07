@@ -5,6 +5,12 @@ metadata:
   labels:
     istio-injection: enabled
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mongodb
+  namespace: blog-app
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -21,6 +27,7 @@ spec:
       labels:
         app: mongodb
     spec:
+      serviceAccountName: mongodb
       containers:
         - name: mongodb
           image: mongo:6-jammy
@@ -61,6 +68,12 @@ spec:
       port: 27017
       targetPort: 27017
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: posts
+  namespace: blog-app
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -76,6 +89,7 @@ spec:
       labels:
         app: posts
     spec:
+      serviceAccountName: posts
       containers:
         - name: posts
           image: tudby/mdo-posts:f1f6412
@@ -107,6 +121,12 @@ spec:
       port: 5000
       targetPort: 5000
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: reviews
+  namespace: blog-app
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -122,6 +142,7 @@ spec:
       labels:
         app: reviews
     spec:
+      serviceAccountName: reviews
       containers:
         - name: reviews
           image: tudby/mdo-reviews:f6f22cd
@@ -153,6 +174,12 @@ spec:
       port: 5000
       targetPort: 5000
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ratings
+  namespace: blog-app
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -168,6 +195,7 @@ spec:
       labels:
         app: ratings
     spec:
+      serviceAccountName: ratings
       containers:
         - name: ratings
           image: tudby/mdo-ratings:d41d276
@@ -199,6 +227,12 @@ spec:
       port: 5000
       targetPort: 5000
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: users
+  namespace: blog-app
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -214,6 +248,7 @@ spec:
       labels:
         app: users
     spec:
+      serviceAccountName: users
       containers:
         - name: users
           image: tudby/mdo-users:24cd1cb
@@ -245,6 +280,12 @@ spec:
       port: 5000
       targetPort: 5000
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: frontend
+  namespace: blog-app
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -260,6 +301,7 @@ spec:
       labels:
         app: frontend
     spec:
+      serviceAccountName: frontend
       containers:
         - name: frontend
           image: tudby/mdo-frontend:9d73b28
